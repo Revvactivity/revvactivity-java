@@ -60,4 +60,14 @@ public class Signal<T> {
     public void onChange(final SignalChangeListener<? super T> changeListener) {
         this.changeListeners.add(changeListener);
     }
+
+    public void bindValueFrom(final Signal<? extends T> from) {
+        from.onChange(this::setValue);
+        setValue(from.getValue());
+    }
+
+    public void bindValueTo(final Signal<? super T> to) {
+        onChange(to::setValue);
+        to.setValue(getValue());
+    }
 }
