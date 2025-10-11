@@ -30,11 +30,15 @@ class SignalTest {
         this.firstValue = FOO;
         this.secondValue = BAR;
 
-        this.firstSignal = new Signal<>(this.firstValue);
+        this.firstSignal = getSignal(this.firstValue);
         this.secondSignal = new Signal<>(this.secondValue);
 
         this.updateListener = mock();
         this.changeListener = mock();
+    }
+
+    protected Signal<String> getSignal(final String value) {
+        return new Signal<>(value);
     }
 
     @Test
