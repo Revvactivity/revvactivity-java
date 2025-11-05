@@ -22,6 +22,18 @@ public class Signal<T> {
         this();
         this.value = value;
     }
+
+    @Override
+    public boolean equals(final Object object) {
+        if (this == object) return true;
+        if (!(object instanceof final Signal<?> signal)) return false;
+        return Objects.equals(this.value, signal.value);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.value);
+    }
     
     public T getValue() {
         return this.value;
