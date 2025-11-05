@@ -42,6 +42,33 @@ class SignalTest {
     }
 
     @Test
+    void testEquals_true() {
+        final Signal<String> signal1 = getSignal(this.firstValue);
+        final Signal<String> signal2 = getSignal(this.firstValue);
+
+        assertThat(signal1.equals(signal2))
+                .isTrue();
+    }
+
+    @Test
+    void testEquals_false() {
+        final Signal<String> signal1 = getSignal(this.firstValue);
+        final Signal<String> signal2 = getSignal(this.secondValue);
+
+        assertThat(signal1.equals(signal2))
+                .isFalse();
+    }
+
+    @Test
+    void testHashCode() {
+        final Signal<String> signal1 = getSignal(this.firstValue);
+        final Signal<String> signal2 = getSignal(this.firstValue);
+
+        assertThat(signal1)
+                .hasSameHashCodeAs(signal2);
+    }
+
+    @Test
     void getValue() {
         assertThat(this.firstSignal.getValue())
                 .isEqualTo(this.firstValue);
