@@ -5,17 +5,18 @@ import org.revvactivity.revvactivity_java.signal.signals.Signal;
 
 import java.lang.reflect.Field;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public interface SignalFunction {
     default void onUpdateSignals(final SignalUpdateListener<Object> updateListener) {
-        final Set<Signal<?>> signals = getSignals();
+        final List<Signal<?>> signals = getSignals();
         signals.forEach(signal -> signal.onUpdate(updateListener));
     }
 
-    private Set<Signal<?>> getSignals() {
+    private List<Signal<?>> getSignals() {
         final Set<Field> signalFields = getSignalFields();
         return getSignalsFromFields(signalFields);
     }
@@ -30,12 +31,12 @@ public interface SignalFunction {
         return signalFields;
     }
 
-    private Set<Signal<?>> getSignalsFromFields(final Set<Field> signalFields) {
+    private List<Signal<?>> getSignalsFromFields(final Set<Field> signalFields) {
         return signalFields.stream()
                 .map(this::getSignalFromField)
                 .filter(Optional::isPresent)
                 .map(Optional::get)
-                .collect(Collectors.toSet());
+                .collect(Collectors.toList());
     }
 
     private Optional<Signal<?>> getSignalFromField(final Field field) {
