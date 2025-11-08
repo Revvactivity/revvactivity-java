@@ -60,6 +60,15 @@ class SignalTest {
     }
 
     @Test
+    void testEquals_false_noSignal() {
+        final Signal<String> signal1 = getSignal(this.firstValue);
+        final Object signal2 = new Object();
+
+        assertThat(signal1.equals(signal2))
+                .isFalse();
+    }
+
+    @Test
     void testHashCode() {
         final Signal<String> signal1 = getSignal(this.firstValue);
         final Signal<String> signal2 = getSignal(this.firstValue);
