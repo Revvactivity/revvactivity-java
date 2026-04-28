@@ -1,5 +1,6 @@
 package org.revvactivity.revvactivity_java.signal.signals;
 
+import java.util.Objects;
 import java.util.function.UnaryOperator;
 
 public class WriteSignal<T> extends Signal<T> {
@@ -18,5 +19,13 @@ public class WriteSignal<T> extends Signal<T> {
 
     public void updateValue(final UnaryOperator<T> updateFunction) {
         setValue(updateFunction.apply(getValue()));
+    }
+
+    public void changeValue(final UnaryOperator<T> changeFunction) {
+        final T oldValue = getValue();
+        final T newValue = changeFunction.apply(oldValue);
+        if (!Objects.equals(newValue, oldValue)) {
+            setValue(newValue);
+        }
     }
 }
